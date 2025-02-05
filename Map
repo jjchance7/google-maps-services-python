@@ -1,0 +1,26 @@
+'use client'
+
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
+
+const DynamicMap = dynamic(() => import('../components/Map'), { ssr: false })
+
+export default function Home() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <h1 className="text-3xl font-bold mb-4 text-center">
+        King County Window Replacement Priority Areas (Windows, Doors, Siding)
+      </h1>
+      <div className="w-full h-[600px] relative">
+        <Suspense fallback={<div>Loading...</div>}>
+          <DynamicMap />
+        </Suspense>
+      </div>
+      <div className="mt-4 text-sm text-gray-600 max-w-2xl text-center">
+        <p>Use the controls in the top right to switch between map and satellite view.</p>
+        <p>Click on an area to see more details about its window replacement priority.</p>
+        <p>Red areas indicate high priority, yellow areas indicate medium priority, and green areas indicate low priority for window replacement opportunities.</p>
+      </div>
+    </div>
+  )
+}
